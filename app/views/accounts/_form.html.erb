@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+<%= form_with(model: account, local: true) do |form| %>
+
+    <%= form.label :name %>
+    <%= form.text_field :name , class: "form-control"%>
+
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-control" %>
+    <%= form.label :passsword %>
+    <%= form.password_field :passsword, class: "form-control" %>
+
+    <%# if yield(:title)=="Sign up" %>
+      <%#= form.label :confirmPasssword %>
+      <%#= form.password_field :confirmPasssword, class: "form-control" %>
+    <%# end %>
+<br/>
+    <%= form.submit yield(:button_text), class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>

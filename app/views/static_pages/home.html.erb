@@ -1,0 +1,18 @@
+<div class="center jumbotron">
+  <h1>Welcome to the Sample App</h1>
+
+  <h2>
+    This is the home page for the
+    <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
+    sample application.
+  </h2>
+  <% if logged_in? %>
+  Welcome
+  <%= link_to current_user.name, current_user %>
+  <% else %>
+    <%= link_to "Sign up now!", '/signup', class: "btn btn-lg btn-primary" %>
+  <% end %>
+</div>
+<%= link_to image_tag("rails.png", alt: "Rails logo", width: 100, height: 100),
+            'http://www.appalachiagroup.com/services/hire-dedicated-developers/hire-ruby-on-rails-developer' %>
+<%#= image_tag("kitten.jpg", alt: "kitten") %>

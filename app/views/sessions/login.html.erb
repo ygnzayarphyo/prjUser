@@ -1,0 +1,25 @@
+<h1>Login</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+<%= form_for(:session, url: login_path) do |form| %>
+
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-control" %>
+
+    <%= form.label :passsword %>
+    <%= form.password_field :passsword, class: "form-control" %>
+
+<br/>
+<%= form.label :remember_me, class: "checkbox inline" do %>
+        <%= form.check_box :remember_me %>
+        <span>Remember me on this computer</span>
+      <% end %>
+      <br/>
+    <%= form.submit "Login", class: "btn btn-primary" %>
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+
+  </div>
+
+</div>
+<% end %>
