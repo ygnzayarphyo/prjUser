@@ -13,8 +13,13 @@ gem 'bcrypt', '~> 3.1.7'
 #semi realistic user name
 gem 'faker'
 
+# for paginate
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+
+# for image uploading
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -62,6 +67,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :production do
+  gem 'pg',  '0.20.0'
+  gem 'fog', '1.42'
 end
 
 group :test do

@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
     @account = Account.find(params[:id])
+    @microposts=@account.microposts.paginate(page: params[:page])
     redirect_to '/login' and return unless true
   end
 

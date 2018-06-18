@@ -1,6 +1,8 @@
 require 'bcrypt'
 class Account < ApplicationRecord
 
+  has_many :microposts, dependent: :destroy
+
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -52,7 +54,7 @@ class Account < ApplicationRecord
   def create_reset_digest
     self.reset_token = Account.new_token
     update_columns(reset_digest: Account.digest(reset_token), reset_send_at: Time.zone.now)
-    
+
   end
 
   # Sends password reset email.
@@ -63,6 +65,11 @@ class Account < ApplicationRecord
   #true if password has pexpired
   def password_reset_expired?
     reset_send_at < 2.hours.ago
+  end
+
+  #for microposts
+  def feed
+    Micropost.where("account_id = ?", id)
   end
 
   private
