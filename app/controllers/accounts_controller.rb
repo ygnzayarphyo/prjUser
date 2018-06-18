@@ -7,13 +7,14 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @account = Account.all.paginate(page: params[:page])
+    @account = Account.where(activated: true).all.paginate(page: params[:page])
   end
 
   # GET /accounts/1
   # GET /accounts/1.json
   def show
     @account = Account.find(params[:id])
+    redirect_to '/login' and return unless true
   end
 
   # GET /accounts/new
@@ -23,7 +24,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/edit
   def edit
-
+    @account = Account.find(params[:id])
   end
 
   # POST /accounts
@@ -34,8 +35,9 @@ class AccountsController < ApplicationController
     respond_to do |format|
 
       if @account.save
+        @account.send_activation_email
         log_in @account
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        format.html { redirect_to @account, notice: "Please check your email to activate your account." }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }
