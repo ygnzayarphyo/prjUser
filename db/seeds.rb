@@ -28,4 +28,13 @@ end
  50.times do
   content = Faker::Lorem.sentence(5)
   users.each { |account| account.microposts.create!(content: content) }
+
+  # Following relationships
+  #users = Account.all
+  #user  = users.first
+  #following = users[3..50]
+  #followers = users[1,2]
+  #following.each { |followed| user.follow(followed) }
+  #followers.each { |follower| follower.follow(user) }
+
 end

@@ -50,15 +50,17 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
   def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
+      @account = Account.find(params[:id])
+      respond_to do |format| #start of loop
+        if @account.update_attributes(account_params) #start inner if
+          format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+          format.json { render :show, status: :ok, location: @account }
+        else
+          format.html { render :edit }
+          format.json { render json: @account.errors, status: :unprocessable_entity }
+        end #end inner if
+      end #end of loop
+
   end
 
   # DELETE /accounts/1
@@ -80,6 +82,20 @@ class AccountsController < ApplicationController
       @user = Account.find(params[:id])
       redirect_to(root_url) unless @user == current_user
     end
+
+  def following
+    @title = "Following"
+    @user  = Account.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = Account.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

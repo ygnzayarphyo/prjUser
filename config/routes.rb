@@ -21,9 +21,18 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
+
+  resources :accounts do 
+    member do
+      get :following, :followers
+    end
+  end
+
   resources :users
   resources :accounts
   resources :account_activations, only: [:edit]
   resources :password_reset, only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
+  resources :relationships,       only: [:create, :destroy]
+
 end

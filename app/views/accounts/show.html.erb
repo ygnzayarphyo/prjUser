@@ -1,4 +1,4 @@
-<h1>User Detail</h1>
+<% provide(:title, 'show') %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -10,8 +10,14 @@
       Password: <%= @account.passsword %><br/>
       Activated: <%= @account.activated %>
     </section>
+
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+
   </aside>
   <div class="col-md-8">
+    <%= render 'shared/follow_form' if logged_in? %>
     <% if @account.microposts.any? %>
       <h3>Microposts (<%= @account.microposts.count %>)</h3>
       <ol class="microposts">
